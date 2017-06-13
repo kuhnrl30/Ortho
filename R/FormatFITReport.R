@@ -32,6 +32,7 @@ FormatFITReport<- function(file){
   # Clean up headers and save as column names
   heads[14:15]<- c("debits","credits")
   heads<- gsub("[[:space:]]", "", heads)
+  heads<- gsub("/","",heads, fixed=T)
   names(dat2)<- heads
   
   dat2[,11:18]<- lapply(dat2[,11:18], as.numeric)
@@ -44,8 +45,9 @@ FormatFITReport<- function(file){
            CompanyCode= substr(CompanyCode, 1,4),
            FunctionalArea= substr(FunctionalArea, 1,4),
            CostCenterNo= gsub("[[:alpha:]]|[[:punct:]]|[[:blank:]]", "",CostCenter),
-           CostCenter= trimws(gsub("OCDG/","",CostCenter))) %>%
+           CostCenter= trimws(gsub("OCDG/","",CostCenter)),
+           Period= month.abb[as.numeric(gsub("/.*","",Periodyear))]) %>%
     select(CompanyCode, FunctionalArea, AccountNumber,   
-           ProfitCenter, CostCenter, CostCenterNo, Month)
+           ProfitCenter, CostCenter, CostCenterNo, Month, Period)
   dat3
 }
