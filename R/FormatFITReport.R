@@ -7,7 +7,6 @@
 #' The data extract is created by using transaction code \code{
 #' s_pl0_86000030}.  In the search paramenter input screen, use the following 
 #' settings:
-#' 
 #' \itemize{
 #' \item{Company Code: }{1001, 1002}
 #' \item{Function: }{2001}
@@ -16,9 +15,7 @@
 #' }
 #' 
 #' @param file path to .csv file extracted from FIT.
-#' 
 #' @export
-#' @import dplyr
 
 FormatFITReport<- function(file){
 
@@ -36,18 +33,17 @@ FormatFITReport<- function(file){
   names(dat2)<- heads
   
   dat2[,11:18]<- lapply(dat2[,11:18], as.numeric)
+  dat2$Month  <- dat2$debits- dat2$credits    
+  dat2$AccountNumber <- substr(dat2$AccountNumber, 6, 13)
+  dat2$ProfitCenter  <- substr(dat2$ProfitCenter, 6, 13)
+  dat2$CompanyCode   <- substr(dat2$CompanyCode, 1, 4)
+  dat2$FunctionalArea<- substr(dat2$FunctionalArea, 1, 4)
+  dat2$CostCenterNo  <- gsub("[[:alpha:]]|[[:punct:]]|[[:blank:]]", "", 
+                             dat2$CostCenter)
+  dat2$Period        <- month.abb[as.numeric(gsub("/.*", "", dat2$Periodyear))]
   
-  dat3<- dat2 %>%
-    mutate(Month= debits - credits) %>%
-    filter(Month != 0) %>%
-    mutate(AccountNumber= substr(AccountNumber, 6, 13),
-           ProfitCenter= substr(ProfitCenter, 6,13),
-           CompanyCode= substr(CompanyCode, 1,4),
-           FunctionalArea= substr(FunctionalArea, 1,4),
-           CostCenterNo= gsub("[[:alpha:]]|[[:punct:]]|[[:blank:]]", "",CostCenter),
-           CostCenter= trimws(gsub("OCDG/","",CostCenter)),
-           Period= month.abb[as.numeric(gsub("/.*","",Periodyear))]) %>%
-    select(CompanyCode, FunctionalArea, AccountNumber,   
-           ProfitCenter, CostCenter, CostCenterNo, Month, Period)
-  dat3
+  
+  dat2[!"Month" == 0, c("CompanyCode", "FunctionalArea", "AccountNumber",
+                        "ProfitCenter", "CostCenter", "CostCenterNo", "Month",
+                        "Period")]
 }

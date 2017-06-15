@@ -11,7 +11,5 @@
 #' @name Ortho
 #' @author Ryan Kuhn
 #' @importFrom readxl "read_excel"
-#' @import dplyr
-#' @import httr
 #'
 NULL

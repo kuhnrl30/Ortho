@@ -16,4 +16,3 @@ the convenience functions to perform this common task.
 \author{
 Ryan Kuhn
 }
-

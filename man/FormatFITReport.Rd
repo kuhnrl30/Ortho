@@ -18,7 +18,6 @@ and remove any extraneous leading characters.
 The data extract is created by using transaction code \code{
 s_pl0_86000030}.  In the search paramenter input screen, use the following 
 settings:
-
 \itemize{
 \item{Company Code: }{1001, 1002}
 \item{Function: }{2001}
@@ -26,4 +25,3 @@ settings:
 \item{Currency Type: }{10}
 }
 }
-
