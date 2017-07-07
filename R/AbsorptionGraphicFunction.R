@@ -21,12 +21,10 @@
 #' AbsorptionGraphic(dat, c("FCST","ACT"))
 
 
-AbsorptionGraphic<- function(x,labels, barwidth=.7, col=c(rgb(192,0,0, max=255),rgb(166,166,166, max=255))){
+AbsorptionGraphic<- function(x,labels, barwidth=.7, col= c(rgb(192,0,0, maxColorValue= 255), rgb(166,166,166, maxColorValue= 255))){
+
   
-  library(reshape2)
-  library(ggplot2)
-  
-  # validate the inputs ----
+     # validate the inputs ----
   if (ncol(x)!=4){
     stop("x should have 4 columns: \n 1. Value Stream \n 
          2. Comparable \n 3. Base \n 4. Plant")
@@ -44,7 +42,7 @@ AbsorptionGraphic<- function(x,labels, barwidth=.7, col=c(rgb(192,0,0, max=255),
   x$PCT <- x$Dif/ x$comparable * 100
   
   # ----
-  y<- reshape2::melt(x, id.vars=c("VS","Plant","PCT","Dif"),
+  y<- melt(x, id.vars=c("VS","Plant","PCT","Dif"),
                      variable.name="cat",
                      value.name="valu")
   y<- y[order(xtfrm(y$Plant), xtfrm(y$cat), -xtfrm(y$VS)),  ]
@@ -65,7 +63,6 @@ AbsorptionGraphic<- function(x,labels, barwidth=.7, col=c(rgb(192,0,0, max=255),
   
   # ----
   # Plotting
-  library(ggplot2)
   n<- nrow(unique(y[, c("Plant","VS")]))
   
   
@@ -105,7 +102,7 @@ AbsorptionGraphic<- function(x,labels, barwidth=.7, col=c(rgb(192,0,0, max=255),
                 axis.text.x = element_text(angle=0,size=15, face= "bold"),
                 panel.spacing= unit(.3,"lines"),
                 plot.title = element_text(hjust = 0.5),
-                strip.background=element_rect(fill=rgb(192,0,0, max=255)),
+                strip.background=element_rect(fill=rgb(192,0,0, maxColorValue=255)),
                 strip.text = element_text(colour = "White",
                                           size=15))
   a

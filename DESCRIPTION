@@ -15,8 +15,11 @@ LazyData: TRUE
 BuildVignettes: TRUE
 Suggests: knitr
 VignetteBuilder: knitr
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 Imports:
 	dplyr,
 	readxl,
-	utils
+	utils,
+	reshape2,
+	ggplot2,
+	grDevices

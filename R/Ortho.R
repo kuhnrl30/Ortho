@@ -12,4 +12,7 @@
 #' @author Ryan Kuhn
 #' @importFrom readxl "read_excel"
 #' @import dplyr
+#' @import reshape2
+#' @import ggplot2
+#' @import grDevices
 NULL
