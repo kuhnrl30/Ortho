@@ -38,8 +38,8 @@ AbsorptionGraphic<- function(x,labels, barwidth=.7, col= c(rgb(192,0,0, maxColor
   # standardize the input data frame
   names(x)<- c("VS","comparable","base","Plant")
   x[,2:3]<- x[,2:3]/1000
-  x$Dif <- round(x$base- x$comparable, 1)
-  x$PCT <- x$Dif/ x$comparable * 100
+  x$Dif <- round(x$comparable- x$base, 1)
+  x$PCT <- x$Dif/ x$base * 100
   
   # ----
   y<- melt(x, id.vars=c("VS","Plant","PCT","Dif"),
